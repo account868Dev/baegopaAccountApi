@@ -1,4 +1,4 @@
-package com.baegopa.account.commons;
+package com.baegopa.account.commons.config;
 
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 import org.springframework.transaction.support.TransactionSynchronizationManager;

@@ -1,4 +1,4 @@
-package com.baegopa.account.commons;
+package com.baegopa.account.commons.helper;
 
 import com.baegopa.account.models.MessageCode;
 import com.baegopa.account.models.response.CommonResponse;

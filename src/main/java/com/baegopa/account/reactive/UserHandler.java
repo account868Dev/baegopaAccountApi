@@ -1,4 +1,4 @@
-package com.baegopa.account.flux;
+package com.baegopa.account.reactive;
 
 import org.springframework.stereotype.Component;
 

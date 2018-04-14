@@ -10,7 +10,13 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import java.time.LocalDateTime;
-
+/*
+@Table을 해서 DB 테이블 명이랑 매핑을 하면대
+@Column은 DB 컬럼 이랑 연결 하는거구
+DB컬럼 명이랑 변수명이 다르면 저렇게 괄호 name = "DB컬럼명" 해주면대
+@Id 랑 및에 있는건 PrimaryKey 선언
+@Data 는 롬복인데 자동으로 get/set toString equals를 생성해줘
+ */
 @Data
 @Entity
 @Table(name = "users")

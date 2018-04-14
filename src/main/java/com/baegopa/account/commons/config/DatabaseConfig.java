@@ -1,4 +1,4 @@
-package com.baegopa.account.commons;
+package com.baegopa.account.commons.config;
 
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.extern.slf4j.Slf4j;

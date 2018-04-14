@@ -1,4 +1,4 @@
-package com.baegopa.account.flux;
+package com.baegopa.account.reactive;
 
 import com.baegopa.account.services.AccountService;
 import com.baegopa.account.models.entity.User;

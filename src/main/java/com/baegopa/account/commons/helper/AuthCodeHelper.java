@@ -1,4 +1,4 @@
-package com.baegopa.account.commons;
+package com.baegopa.account.commons.helper;
 
 import java.security.MessageDigest;
 import java.util.Random;

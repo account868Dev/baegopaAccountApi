@@ -1,6 +1,6 @@
 package com.baegopa.account;
 
-import com.baegopa.account.flux.AccountHandler;
+import com.baegopa.account.reactive.AccountHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
