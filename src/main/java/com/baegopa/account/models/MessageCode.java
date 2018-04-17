@@ -2,9 +2,6 @@ package com.baegopa.account.models;
 
 import lombok.Getter;
 
-/**
- * Created by pax on 2016. 10. 20..
- */
 public enum MessageCode {
     SUCCESS(1), FAIL(-1),
     ALREADY_FRIENDS(101), INVALID_USER(-101), NOT_PLUS_FRIEND(-102), INVALID_PARAMS(-109), OVERLAP(-110),

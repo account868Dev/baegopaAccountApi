@@ -16,7 +16,7 @@ public class Router {
 
     @Bean
     public RouterFunction<ServerResponse> accountRouterFunction(AccountHandler accountHandler) {
-        return route(POST("/api/login").and(accept(MediaType.APPLICATION_JSON)), accountHandler::login);
+        return route(POST("/api/accounts/login").and(accept(MediaType.APPLICATION_JSON)), accountHandler::login);
 //                .andRoute(GET("/api/customer/{id}").and(accept(MediaType.APPLICATION_JSON)), customerHandler::getCustomer)
 //                .andRoute(POST("/api/customer/post").and(accept(MediaType.APPLICATION_JSON)), customerHandler::postCustomer)
 //                .andRoute(PUT("/api/customer/put/{id}").and(accept(MediaType.APPLICATION_JSON)), customerHandler::putCustomer)

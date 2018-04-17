@@ -40,10 +40,12 @@ public class AccountService {
 
     public CommonResponse login(User user) throws Exception {
         user.setPassword(AuthCodeHelper.getEncSHA256(new String(user.getPassword())).toCharArray());
+        user.setToken(AuthCodeHelper.getEncSHA256(AuthCodeHelper.SecurityCode()));
 
         return userRepository.findByEmailAndUseYn(user.getEmail(), "Y")
                 .map( u -> {
                     if(user.getPassword().equals(u.getPassword())){
+                        u.setToken(user.getToken());
                         return new CommonResponse<>(MessageCode.SUCCESS, u);
                     }
                     return new CommonResponse<>(MessageCode.FAIL);

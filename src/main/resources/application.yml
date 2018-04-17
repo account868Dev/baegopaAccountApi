@@ -1,4 +1,17 @@
 spring:
+  mail:
+      host: smtp.gmail.com
+      port: 25
+      username: "peoplejobis@gmail.com"
+      password: "bxhnoydmxdzculsp"
+      properties:
+            mail:
+               smtp:
+                 auth : true
+                 starttls:
+                    enable   : true
+                    required : true
+
   profiles: default
 
   jpa:
