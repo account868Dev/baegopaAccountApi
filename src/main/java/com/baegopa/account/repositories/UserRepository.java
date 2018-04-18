@@ -12,6 +12,7 @@ import java.util.Optional;
 findBy컬럼명
 쿼리를 작성하고 싶으면
 아래 처럼 해주면 대
+Optional은 안해도 되지만 간지나는 코드를 위해 ㅋㅋ
 이해 잘안될서야 처음에는 설명이 부족하면 이야기하고!
  */
 public interface UserRepository extends CrudRepository<User, Long> {

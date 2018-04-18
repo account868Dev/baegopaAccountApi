@@ -42,7 +42,7 @@ public class AccountService {
                 }).orElseGet(() -> {
                     String emailAuthCode = String.valueOf(AuthCodeHelper.RandomCode());
                     mailHelper.sendHtmlMail(new MailMessage(
-                            user.getEmail(), String.format(StrMessage.email.emailAuthMessage, emailAuthCode), StrMessage.email.emailAuthTitle));
+                            user.getEmail(), String.format(StrMessage.Email.emailAuthMessage, emailAuthCode), StrMessage.Email.emailAuthTitle));
                     authService.setAuthKey(user.getId(), emailAuthCode, AuthType.EMAIL_AUTH_NUMBER);
                     return new User(user.getEmail(), user.getName(), user.getPassword());
                 });
@@ -51,21 +51,20 @@ public class AccountService {
 
     public CommonResponse login(User user) throws Exception {
         user.setPassword(AuthCodeHelper.getEncSHA256(new String(user.getPassword())).toCharArray());
-        user.setToken(AuthCodeHelper.getEncSHA256(AuthCodeHelper.SecurityCode()));
+        final String token = AuthCodeHelper.getEncSHA256(AuthCodeHelper.SecurityCode());
 
         return userRepository.findByEmailAndUseYn(user.getEmail(), "Y")
                 .map( u -> {
+                    if(user.getPassword().equals(u.getPassword())) {
+                        return new CommonResponse<>(MessageCode.FAIL, StrMessage.Account.passwordNotAuth);
+                    }
                     if("N".equals(u.getAuthYn())) {
-                        return new CommonResponse<>(MessageCode.FAIL, "이메일 인증을 해주세요.");
+                        return new CommonResponse<>(MessageCode.FAIL, StrMessage.Account.emailNotAuth);
                     }
-
-                    if(user.getPassword().equals(u.getPassword())){
-                        u.setToken(user.getToken());
-                        return new CommonResponse<>(MessageCode.SUCCESS, u);
-                    }
-                    return new CommonResponse<>(MessageCode.FAIL);
+                    u.setToken(token);
+                    return new CommonResponse<>(MessageCode.SUCCESS, u);
                 })
-                .orElse(new CommonResponse<>(MessageCode.FAIL));
+                .orElse(new CommonResponse<>(MessageCode.FAIL, StrMessage.Account.userEmpty));
     }
 
     public CommonResponse checkEmail(String email) {
