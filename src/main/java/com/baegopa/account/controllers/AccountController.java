@@ -33,8 +33,8 @@ public class AccountController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity<CommonResponse<Object>> login(@RequestBody User user) throws Exception {
-        if(user == null || Strings.isNullOrEmpty(user.getEmail()) || user.getPassword().length < 1)
-            return ResponseHelper.fail(MessageCode.INVALID_USER);
+        if(user == null || user.getPassword().length < 1)
+            return ResponseHelper.fail();
 
         return ResponseHelper.success(accountService.login(user));
     }
@@ -42,7 +42,7 @@ public class AccountController {
     @RequestMapping(value = "", method = RequestMethod.POST)
     public ResponseEntity<CommonResponse<Object>> add(@RequestBody User user) throws Exception {
         if(user == null || Strings.isNullOrEmpty(user.getEmail()) || user.getPassword().length < 1)
-            return ResponseHelper.fail(MessageCode.INVALID_USER);
+            return ResponseHelper.fail();
 
         return ResponseHelper.success(accountService.set(user));
     }
