@@ -1,15 +1,23 @@
 package com.baegopa.account.models.entity;
 
+import com.google.common.collect.Lists;
 import lombok.Data;
+import org.hibernate.annotations.Where;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import java.time.LocalDateTime;
+import java.util.List;
+
 /*
 @Table을 해서 DB 테이블 명이랑 매핑을 하면대
 @Column은 DB 컬럼 이랑 연결 하는거구
@@ -57,7 +65,21 @@ public class User {
     @Transient
     private String token;
 
+//    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+//    @JoinColumn(name = "id", referencedColumnName = "user_id")
+//    private List<UserAuthKey> userAuthKeyList = Lists.newArrayList();
+
     public User(){}
+
+    public User(String email, String name, char[] password) {
+        this.email = email;
+        this.name = name;
+        this.password = password;
+        this.snsType = "N";
+        this.useYn = "Y";
+        this.authYn = "N";
+        this.createdAt = LocalDateTime.now();
+    }
 
     public User(String email, String name, char[] password, String snsType, String snsId) {
         this.email = email;
@@ -65,6 +87,8 @@ public class User {
         this.password = password;
         this.snsType = snsType;
         this.snsId = snsId;
+        this.useYn = "Y";
+        this.authYn = "N";
         this.createdAt = LocalDateTime.now();
     }
 }

@@ -1,4 +1,4 @@
-package com.baegopa.account.web;
+package com.baegopa.account.controllers;
 
 import com.baegopa.account.commons.helper.ResponseHelper;
 import com.baegopa.account.models.MessageCode;
@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /*
@@ -44,5 +45,13 @@ public class AccountController {
             return ResponseHelper.fail(MessageCode.INVALID_USER);
 
         return ResponseHelper.success(accountService.set(user));
+    }
+
+    @RequestMapping(value = "/check/email", method = RequestMethod.GET)
+    public ResponseEntity<CommonResponse<Object>> add(@RequestParam(value = "email") String email) {
+        if(Strings.isNullOrEmpty(email))
+            return ResponseHelper.fail();
+
+        return ResponseHelper.success(accountService.checkEmail(email));
     }
 }

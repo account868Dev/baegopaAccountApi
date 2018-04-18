@@ -40,6 +40,7 @@ public class DatabaseConfig {
         dataSource.setPassword(properties.getPassword());
         dataSource.setMinimumIdle(10);
         dataSource.setMaximumPoolSize(100);
+        dataSource.setConnectionTestQuery(properties.getConnectionTestQuery());
         return dataSource;
     }
 

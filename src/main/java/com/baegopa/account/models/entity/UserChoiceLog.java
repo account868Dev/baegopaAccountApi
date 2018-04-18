@@ -1,7 +1,6 @@
 package com.baegopa.account.models.entity;
 
 import lombok.Data;
-import org.springframework.stereotype.Component;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,7 +13,7 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @Table(name = "user_auth_keys")
-public class UserAuthKey {
+public class UserChoiceLog {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,11 +31,4 @@ public class UserAuthKey {
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
-
-    public UserAuthKey() {}
-    public UserAuthKey(Long userId, String authKey, String type) {
-        this.userId = userId;
-        this.authKey = authKey;
-        this.type = type;
-    }
 }
