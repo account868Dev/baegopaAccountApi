@@ -37,8 +37,7 @@ public class AuthInterceptor extends WebContentInterceptor {
                  */
                 Long id = Long.valueOf(request.getHeader("x-Id"));
                 String token = request.getHeader("x-token");
-                return  authService.checkAuthKey(id, token, AuthType.TOKEN)
-                        ? super.preHandle(request, response, handler) : false;
+                return authService.checkAuthKey(id, token, AuthType.TOKEN) && super.preHandle(request, response, handler);
             }
         } else {
             return super.preHandle(request, response, handler);

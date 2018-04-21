@@ -20,11 +20,11 @@ public class UserController {
     @Autowired private UserService userService;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ResponseEntity<CommonResponse<Object>> login(@RequestBody User user) throws Exception {
+    public ResponseEntity login(@RequestBody User user) throws Exception {
         if(user == null || user.getPassword().length < 1)
             return ResponseHelper.fail();
 
-        return ResponseHelper.success(userService.login(user));
+        return ResponseEntity.ok().body(userService.login(user));
     }
 
     /*

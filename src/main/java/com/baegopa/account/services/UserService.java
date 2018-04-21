@@ -73,8 +73,7 @@ public class UserService {
         }).orElse(null);
     }
 
-    public CommonResponse checkEmail(String email) {
-        return userRepository.findByEmailAndUseYn(email, "Y").orElse(null) == null ?
-                new CommonResponse<>(MessageCode.FAIL) : new CommonResponse<>(MessageCode.FAIL);
+    public Boolean checkEmail(String email) {
+        return userRepository.findByEmailAndUseYn(email, "Y").orElse(null) != null;
     }
 }
