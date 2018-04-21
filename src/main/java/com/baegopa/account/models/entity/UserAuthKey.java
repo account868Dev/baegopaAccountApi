@@ -33,6 +33,9 @@ public class UserAuthKey {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+
     public UserAuthKey() {}
     public UserAuthKey(Long userId, String authKey, String type) {
         this.userId = userId;

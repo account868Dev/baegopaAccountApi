@@ -1,6 +1,7 @@
 package com.baegopa.account.commons;
 
-import com.baegopa.account.repositories.UserAuthKeyRepository;
+import com.baegopa.account.models.AuthType;
+import com.baegopa.account.services.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
@@ -10,29 +11,34 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/*
+여기는 인터셉터 인데
+controller 접근 전에 공통적으로 처리를 해주는곳 이야
+ */
 @Component
 public class AuthInterceptor extends WebContentInterceptor {
 
     @Autowired
-    private UserAuthKeyRepository userAuthKeyRepository;
+    private AuthService authService;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws ServletException {
-        //HandlerMethod handlerMethod = (HandlerMethod) handler;
         if (handler instanceof HandlerMethod) {
             AuthProcessing authProcessing = ((HandlerMethod) handler).getMethodAnnotation(AuthProcessing.class);
-
+            /*
+            AuthProcessing 은 내가 만들어준 골뱅인데 이골뱅이가 붙어 있으면 아래와 로직을 타구
+            안붙어 있으면 그냥 통과 하는 로직이야
+             */
             if (authProcessing == null) {
                 return super.preHandle(request, response, handler);
             } else {
-                //TODO 추가작업
-//                AuthValue value = new AuthValue();
-//                value.setToken(request.getHeader("s-token"));
-//                value.setId(request.getHeader("s-Id"));
-//
-//                if (1 > authRepository.authByToken(value)) return false;
-//                else
-                return super.preHandle(request, response, handler);
+                /*
+                인증 처리
+                 */
+                Long id = Long.valueOf(request.getHeader("x-Id"));
+                String token = request.getHeader("x-token");
+                return  authService.checkAuthKey(id, token, AuthType.TOKEN)
+                        ? super.preHandle(request, response, handler) : false;
             }
         } else {
             return super.preHandle(request, response, handler);

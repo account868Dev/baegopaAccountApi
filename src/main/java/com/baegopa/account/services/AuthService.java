@@ -1,9 +1,7 @@
 package com.baegopa.account.services;
 
 import com.baegopa.account.models.AuthType;
-import com.baegopa.account.models.MessageCode;
 import com.baegopa.account.models.entity.UserAuthKey;
-import com.baegopa.account.models.response.CommonResponse;
 import com.baegopa.account.repositories.UserAuthKeyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
@@ -16,6 +14,12 @@ import java.time.LocalDateTime;
 public class AuthService {
     @Autowired private UserAuthKeyRepository userAuthKeyRepository;
 
+    /*
+    @Async 붙이면
+    자동으로 비동기 처리를 해죠
+    대신 Return이 없는 것만 있을대는
+    Future를 써야하는데 이건 콜백으루 가져와야하는...
+     */
     @Async
     @Transactional
     public void setAuthKey(Long userId, String authKey, AuthType authType) {
@@ -23,17 +27,17 @@ public class AuthService {
                 .map( u -> {
                     u.setAuthKey(authKey);
                     u.setCreatedAt(LocalDateTime.now());
+                    u.setUpdatedAt(LocalDateTime.now());
                     return u;
                 }).orElse(new UserAuthKey(userId, authKey, authType.getValue()));
 
         userAuthKeyRepository.save(userAuthKey);
     }
 
-    public CommonResponse checkAuthKey(Long userId, String authKey, AuthType authType) {
+    public boolean checkAuthKey(Long userId, String authKey, AuthType authType) {
         return userAuthKeyRepository.findByUserIdAndType(userId, authType.getValue())
-                .filter( u -> authKey.equals(u.getAuthKey()))
-                .orElse(null) == null
-                ? new CommonResponse<>(MessageCode.FAIL) : new CommonResponse<>(MessageCode.SUCCESS);
+                .filter(u -> authKey.equals(u.getAuthKey()))
+                .orElse(null) != null;
     }
 }
 

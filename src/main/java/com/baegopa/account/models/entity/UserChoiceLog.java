@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
-@Table(name = "user_auth_keys")
+@Table(name = "user_choice_logs")
 public class UserChoiceLog {
 
     @Id
@@ -23,11 +23,8 @@ public class UserChoiceLog {
     @Column(name = "user_id")
     private Long userId;
 
-    @Column(name = "auth_key")
-    private String authKey;
-
-    @Column
-    private String type;
+    @Column(name = "food_id")
+    private Long foodId;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
